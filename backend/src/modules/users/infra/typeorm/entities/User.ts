@@ -8,7 +8,7 @@ import {
 
 @Entity('users')
 class Appointment {
-  @PrimaryGeneratedColumn('increment')
+  @PrimaryGeneratedColumn('uuid')
   id: string;
 
   @Column()
