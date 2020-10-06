@@ -131,11 +131,10 @@ const SignUp: React.FC = () => {
                 onSubmitEditing={() => formRef.current?.submitForm()}
                 secureTextEntry
               />
+              <Button onPress={() => formRef.current?.submitForm()}>
+                Criar conta
+              </Button>
             </Form>
-
-            <Button onPress={() => formRef.current?.submitForm()}>
-              Criar conta
-            </Button>
           </Container>
         </ScrollView>
 

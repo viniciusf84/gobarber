@@ -29,48 +29,51 @@ const SignUp: React.FC = () => {
   const { addToast } = useToast();
   const history = useHistory();
 
-  const handleSubmit = useCallback(async (data: object) => {
-    try {
-      formRef.current?.setErrors({});
+  const handleSubmit = useCallback(
+    async (data: object) => {
+      try {
+        formRef.current?.setErrors({});
 
-      const schema = Yup.object().shape({
-        name: Yup.string().required('Campo obrigatório'),
-        email: Yup.string()
-          .required('Campo obrigatório')
-          .email('Digite um email válido'),
-        password: Yup.string().min(6, 'A senha deve ter no mínimo 6 dígitos'),
-      });
+        const schema = Yup.object().shape({
+          name: Yup.string().required('Campo obrigatório'),
+          email: Yup.string()
+            .required('Campo obrigatório')
+            .email('Digite um email válido'),
+          password: Yup.string().min(6, 'A senha deve ter no mínimo 6 dígitos'),
+        });
 
-      await schema.validate(data, {
-        abortEarly: false,
-      });
+        await schema.validate(data, {
+          abortEarly: false,
+        });
 
-      await api.post('users', data);
+        await api.post('users', data);
 
-      history.push('/');
+        history.push('/');
 
-      addToast({
-        type: 'success',
-        title: 'Cadastro realizado!',
-        description: 'Você já pode fazer seu logon no GoBarber!',
-      });
-    } catch (err) {
-      if (err instanceof Yup.ValidationError) {
-        const errors = getValidationErrors(err);
+        addToast({
+          type: 'success',
+          title: 'Cadastro realizado!',
+          description: 'Você já pode fazer seu logon no GoBarber!',
+        });
+      } catch (err) {
+        if (err instanceof Yup.ValidationError) {
+          const errors = getValidationErrors(err);
 
-        formRef.current?.setErrors(errors);
+          formRef.current?.setErrors(errors);
 
-        return;
+          return;
+        }
+
+        addToast({
+          type: 'error',
+          title: 'Erro no cadastro',
+          description:
+            'Ocorreu um erro ao realizar o cadastro. Tente novamente mais tarde.',
+        });
       }
-
-      addToast({
-        type: 'error',
-        title: 'Erro no cadastro',
-        description:
-          'Ocorreu um erro ao realizar o cadastro. Tente novamente mais tarde.',
-      });
-    }
-  }, []);
+    },
+    [addToast, history],
+  );
 
   return (
     <Container>
@@ -80,7 +83,7 @@ const SignUp: React.FC = () => {
           <img src={logoImg} alt="GoBarber" />
 
           <Form ref={formRef} onSubmit={handleSubmit}>
-            <h1>Faça seu cadastro</h1>
+            <h1>Faça seu cadastrosd</h1>
 
             <Input name="name" icon={FiUser} placeholder="Nome" />
 
@@ -95,7 +98,7 @@ const SignUp: React.FC = () => {
 
             <Button type="submit">Entrar</Button>
 
-            <a href="#forgot">Esqueci minha senha</a>
+            <Link to="/forgot-password">Esqueci minha senha</Link>
           </Form>
 
           <Link to="/">
