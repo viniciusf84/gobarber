@@ -166,7 +166,7 @@ const Profile: React.FC = () => {
         enabled>
         <ScrollView
           keyboardShouldPersistTaps="handled"
-          contentContainerStyle={{flex: 1}}>
+          contentContainerStyle={{flexGrow: 1}}>
           <Container>
             <BackButton onPress={handleGoBack}>
               <Icon name="chevron-left" size={24} color="#999591" />
@@ -178,6 +178,7 @@ const Profile: React.FC = () => {
             <View>
               <Title>Meu perfil</Title>
             </View>
+
             <Form initialData={user} ref={formRef} onSubmit={handleSignUp}>
               <Input
                 autoCapitalize="words"
@@ -241,6 +242,7 @@ const Profile: React.FC = () => {
                 onSubmitEditing={() => formRef.current?.submitForm()}
                 secureTextEntry
               />
+
               <Button onPress={() => formRef.current?.submitForm()}>
                 Confirmar mudanças
               </Button>
